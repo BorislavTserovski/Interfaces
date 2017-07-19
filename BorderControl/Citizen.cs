@@ -6,17 +6,19 @@ using System.Threading.Tasks;
 
 namespace BorderControl
 {
-    public class Citizen: IInhabitant
+    public class Citizen: IInhabitant, IBirthable
     {
         private string id;
         private string name;
         private int age;
+        private string birthday;
 
-        public Citizen(string id, string name, int age)
+        public Citizen(string id, string name, int age, string birthday)
         {
             this.Id = id;
             this.Name = name;
             this.Age = age;
+            this.BirthDay = birthday;
         }
         public string Id
         {
@@ -33,6 +35,12 @@ namespace BorderControl
         {
             get { return this.name; }
             private set { this.name = value; }
+        }
+
+        public string BirthDay
+        {
+            get { return this.birthday; }
+            private set { this.birthday = value; }
         }
     }
 }

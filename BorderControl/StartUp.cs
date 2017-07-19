@@ -12,34 +12,46 @@ namespace BorderControl
        {
            string input = Console.ReadLine();
             List<IInhabitant>inhabitants = new List<IInhabitant>();
+            List<IBirthable> living = new List<IBirthable>();
            while (input!="End")
            {
                string[] args = input.Split();
-               if (args.Length==2)
+               string type = args[0];
+               switch (type)
                {
-                   string model = args[0];
-                   string id = args[1];
-                    IInhabitant robot = new Robot(id, model);
-                    inhabitants.Add(robot);
-               }
-               else if (args.Length==3)
-               {
-                   string name = args[0];
-                   int age = int.Parse(args[1]);
-                   string id = args[2];
-                   IInhabitant citizen = new Citizen(id, name, age);
-                   inhabitants.Add(citizen);
+                    case "Robot":
+                        string model = args[1];
+                        string id = args[2];
+                        IInhabitant robot = new Robot(id, model);
+                        inhabitants.Add(robot);
+                        break;
+                    case "Pet":
+                        string nameOfPet = args[1];
+                        string birthday = args[2];
+                        IBirthable pet = new Pet(birthday, nameOfPet);
+                        living.Add(pet);
+                        break;;
+                    case "Citizen":
+                        string nameOfPerson = args[1];
+                        int age = int.Parse(args[2]);
+                        string idOfPerson = args[3];
+                        string birthdayOfPerson = args[4];
+                        IBirthable person = new Citizen(idOfPerson, nameOfPerson, age, birthdayOfPerson);
+                        IInhabitant citizen = new Citizen(idOfPerson, nameOfPerson, age, birthdayOfPerson);
+                        inhabitants.Add(citizen);
+                        living.Add(person);
+                        break;
                }
                input = Console.ReadLine();
            }
 
-           string fakeId = Console.ReadLine();
+           string year = Console.ReadLine();
 
-           foreach (var inhabitant in inhabitants)
+           foreach (var creature in living)
            {
-               if (inhabitant.Id.EndsWith(fakeId))
+               if (creature.BirthDay.EndsWith(year))
                {
-                    Console.WriteLine(inhabitant.Id);
+                    Console.WriteLine(creature.BirthDay);
                }
            }
        }
